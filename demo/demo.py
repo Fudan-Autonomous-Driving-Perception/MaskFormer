@@ -126,14 +126,35 @@ if __name__ == "__main__":
                 )
             )
 
+            # if args.output:
+            #     if os.path.isdir(args.output):
+            #         assert os.path.isdir(args.output), args.output
+            #         out_filename = os.path.join(args.output, os.path.basename(path))
+            #     else:
+            #         assert len(args.input) == 1, "Please specify a directory with args.output"
+            #         out_filename = args.output
+            #     visualized_output.save(out_filename)
+            # save origin data
             if args.output:
                 if os.path.isdir(args.output):
                     assert os.path.isdir(args.output), args.output
-                    out_filename = os.path.join(args.output, os.path.basename(path))
+                    out_filename1 = os.path.join(args.output, os.path.splitext(os.path.basename(path))[0]+'.png')
+                    out_filename2 = os.path.join(args.output, os.path.splitext(os.path.basename(path))[0]+'.h5')
                 else:
                     assert len(args.input) == 1, "Please specify a directory with args.output"
-                    out_filename = args.output
-                visualized_output.save(out_filename)
+                    out_filename1 = args.output
+                    out_filename2 = args.output
+                pred_seg = np.array(predictions["sem_seg"].argmax(dim=0).cpu())
+                cv2.imwrite(out_filename1, pred_seg)
+                # pred_noam = np.array(predictions["sem_seg"][:38].cpu())
+                # pred_noam = ((pred_noam - pred_noam.min()) / (pred_noam.max() - pred_noam.min()) * 255).astype('uint8')
+                # print(pred_noam.shape)
+                # print(pred_noam[:, 0, 0])
+                # # np.save(out_filename2, pred_noam)
+                # import h5py
+                # with h5py.File(out_filename2,'w') as h5f:
+                #     h5f.create_dataset('seg', pred_noam.shape, pred_noam.dtype, pred_noam, compression=9)
+
             else:
                 cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_NORMAL)
                 cv2.imshow(WINDOW_NAME, visualized_output.get_image()[:, :, ::-1])

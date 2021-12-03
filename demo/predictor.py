@@ -46,7 +46,10 @@ class VisualizationDemo(object):
             vis_output (VisImage): the visualized image output.
         """
         vis_output = None
+        from time import time
+        t0 = time()
         predictions = self.predictor(image)
+        print('inference consume:{} ms'.format((time() - t0) * 1000))
         # Convert image from OpenCV BGR format to Matplotlib RGB format.
         image = image[:, :, ::-1]
         visualizer = Visualizer(image, self.metadata, instance_mode=self.instance_mode)
