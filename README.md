@@ -1,3 +1,8 @@
+# 实验
+|实验|服务器|iter|ims_per_batch|lr|交通标志牌 杆状物 路面标识(分辨率）|速度
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+ MaskFormer-Swin-Tiny| V100 | 160000 | 16 | WarmupPolyLR | 78.32 53.30 70.73(512x512) | 22.17FPS
+ MaskFormer-Swin-Small| V100 | 160000 | 16 | WarmupPolyLR | 80.19 54.92 73.43(512x512) | 16.86FPS
 # MaskFormer: Per-Pixel Classification is Not All You Need for Semantic Segmentation
 
 [Bowen Cheng](https://bowenc0221.github.io/), [Alexander G. Schwing](https://alexander-schwing.de/), [Alexander Kirillov](https://alexander-kirillov.github.io/)
